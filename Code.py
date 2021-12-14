@@ -215,7 +215,7 @@ sr , _ = wavfile.read(all_paths[0])
 
 #Declare how many files should be used for training an testing
 n_train_files = 20
-n_tst_files = 1
+n_tst_files = 4
 
 #Declare paths to training and testing files
 train_paths = all_paths[:n_train_files]
@@ -226,7 +226,7 @@ start = 0 #where to start reading file
 stop = 30*sr #where to stop reading file
 overlap = 0 #Choose integer >= 0
 input_size = 50 #how many segments to load
-batch = 1000 # Batch size
+batch = 10000 # Batch size
 quant_size = list(range(1,input_size+1))
 quant_size[0] = 1
 var = 1
@@ -246,6 +246,9 @@ bit_plt = []
 all_loss_plt =[]
 all_rate_plt = []
 all_distortion_plt = []
+
+np.savetxt('Quant.txt', quant_size)
+np.savetxt('bit.txt', bit_depth)
 
 quant_plt = []
 for k in bit_depth:
@@ -316,4 +319,9 @@ for k in bit_depth:
     all_loss_plt.append(loss_plt)
     all_distortion_plt.append(distortion_plt)
     all_rate_plt.append(rate_plt)
+
+
+np.savetxt('Results_loss.txt', all_loss_plt)
+np.savetxt('Results_dist.txt', all_distortion_plt)
+np.savetxt('Results_rate.txt', all_rate_plt)
 
